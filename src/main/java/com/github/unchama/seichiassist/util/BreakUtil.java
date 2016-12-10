@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.data.PlayerData;
 import net.coreprotect.CoreProtectAPI;
 
 import org.bukkit.ChatColor;
@@ -26,7 +27,6 @@ import org.bukkit.material.Dye;
 
 import com.github.unchama.seichiassist.Config;
 import com.github.unchama.seichiassist.SeichiAssist;
-import com.github.unchama.seichiassist.data.PlayerData;
 
 public class BreakUtil {
 	//他のプラグインの影響があってもブロックを破壊できるのか

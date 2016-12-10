@@ -5,13 +5,12 @@ package com.github.unchama.seichiassist.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.unchama.seichiassist.data.Coordinate;
 import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.inventivetalent.particle.ParticleEffect;
-
-import com.github.unchama.seichiassist.data.Coordinate;
 
 public class EffectUtil {
 
