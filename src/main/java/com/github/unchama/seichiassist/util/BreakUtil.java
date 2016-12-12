@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.data.PlayerData;
 import net.coreprotect.CoreProtectAPI;
 
 import org.bukkit.ChatColor;
@@ -26,7 +27,6 @@ import org.bukkit.material.Dye;
 
 import com.github.unchama.seichiassist.Config;
 import com.github.unchama.seichiassist.SeichiAssist;
-import com.github.unchama.seichiassist.data.PlayerData;
 
 public class BreakUtil {
 	//他のプラグインの影響があってもブロックを破壊できるのか
@@ -143,6 +143,7 @@ public class BreakUtil {
 		int amount = itemstack.getAmount();
 		Material material = itemstack.getType();
 
+		/*
 		int v1 = config.getMineStacklevel(1);
 		int v2 = config.getMineStacklevel(2);
 		int v3 = config.getMineStacklevel(3);
@@ -181,8 +182,42 @@ public class BreakUtil {
 		int v36 = config.getMineStacklevel(36);
 		int v37 = config.getMineStacklevel(37);
 		int v38 = config.getMineStacklevel(38);
+		*/
 
+		for(int i=0; i<SeichiAssist.minestacklist.size(); i++){
+			if(material.equals(SeichiAssist.minestacklist.get(i).getMaterial()) &&
+				itemstack.getDurability() == SeichiAssist.minestacklist.get(i).getDurability()){
+				//この時点でIDとサブIDが一致している
+				if(SeichiAssist.minestacklist.get(i).getNameloreflag()==false){//名前と説明文が無いアイテム
+					if(playerdata.level < config.getMineStacklevel(SeichiAssist.minestacklist.get(i).getLevel())){
+						//レベルを満たしていない
+						return false;
+					} else {
+						playerdata.minestack.addNum(i, amount);
+						break;
+					}
+				} else {
+					//名前・説明文付き
+					ItemMeta meta = itemstack.getItemMeta();
+					if(meta==null || meta.getDisplayName()==null || meta.getLore()== null){
+						return false;
+					}
+					//この時点で名前と説明文がある
+						if(SeichiAssist.minestacklist.get(i).getGachatype()==-1){ //ガチャ以外のアイテム(がちゃりんご)
+							if( !(meta.getDisplayName().equals(Util.getGachaimoName()))
+								|| !(meta.getLore().equals(Util.getGachaimoLore())) ){
+								return false;
+							}
+							playerdata.minestack.addNum(i, amount);
+							break;
+						} else {
+							//ガチャ品
+						}
+				}
+			}
+		}
 
+		/*
 		switch(material){
 			case DIRT:
 				if(playerdata.level < v1){
@@ -614,6 +649,7 @@ public class BreakUtil {
 			default:
 				return false;
 		}
+		*/
 		//player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, (float)0.1, (float)1);
 		return true;
 
