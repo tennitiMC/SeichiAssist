@@ -17,6 +17,8 @@ import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -173,6 +175,13 @@ public class Util {
 	//指定されたアイテムを指定されたプレイヤーインベントリに追加する
 	public static void addItem(Player player,ItemStack itemstack){
 		player.getInventory().addItem(itemstack);
+	}
+	//指定された量の経験値オーブを指定されたプレイヤーにドロップする
+	public static void dropExpOrb(Player player,int expAmount){
+		Location loc = player.getLocation().clone();
+		ExperienceOrb expOrb = player.getWorld().spawn(loc, ExperienceOrb.class);
+		expOrb.setExperience(expAmount);
+		SeichiAssist.entitylist.add((Entity) expOrb);
 	}
 
 	public static void sendAdminMessage(String str){

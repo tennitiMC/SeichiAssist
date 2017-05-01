@@ -554,6 +554,17 @@ public class MenuInventoryData {
 		inventory.setItem(17,itemstack);
 
 
+		//ツール修繕
+		//経験値確認用のクラスを設定
+		ExperienceManager expman = new ExperienceManager(player);
+		itemstack = new ItemStack(Material.EXP_BOTTLE,1);
+		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.EXP_BOTTLE);
+		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ツール修繕");
+		lore = Arrays.asList(ChatColor.RESET + "" + ChatColor.GREEN + "手持ちの修繕ツールを経験値で修理します(所持経験値:" + expman.getCurrentExp() + ")" );
+		itemmeta.setLore(lore);
+		itemstack.setItemMeta(itemmeta);
+		inventory.setItem(25,itemstack);
+
 		return inventory;
 	}
 	//2ページメニュー
@@ -2461,6 +2472,7 @@ public class MenuInventoryData {
 		Inventory inventory = Bukkit.getServer().createInventory(null,4*9,ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "実績ポイントショップ");
 		ItemStack itemstack;
 		ItemMeta itemmeta;
+		SkullMeta skullmeta;
 		List<String> lore = new ArrayList<String>();
 
 		//実績ポイントの最新情報反映ボタン

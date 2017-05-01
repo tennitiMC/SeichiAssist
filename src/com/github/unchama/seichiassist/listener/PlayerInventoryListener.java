@@ -48,6 +48,7 @@ import com.github.unchama.seichiassist.data.GachaData;
 import com.github.unchama.seichiassist.data.MenuInventoryData;
 import com.github.unchama.seichiassist.data.MineStackGachaData;
 import com.github.unchama.seichiassist.data.PlayerData;
+import com.github.unchama.seichiassist.data.ToolRepair;
 import com.github.unchama.seichiassist.task.CoolDownTaskRunnable;
 import com.github.unchama.seichiassist.task.TitleUnlockTaskRunnable;
 import com.github.unchama.seichiassist.util.ExperienceManager;
@@ -750,6 +751,24 @@ public class PlayerInventoryListener implements Listener {
 					itemstackcurrent.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "インベントリ共有")){
 				player.chat("/shareinv");
 				itemstackcurrent.setItemMeta(MenuInventoryData.dispShareInvMeta(playerdata));
+			}
+
+			// ツール修繕
+			else if(itemstackcurrent.getType().equals(Material.EXP_BOTTLE)&&
+					itemstackcurrent.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ツール修繕")){
+
+				ToolRepair.RepairTool(player, ToolRepair.RepairType.Mending);
+//				int expAmount = 500;
+//				//経験値が足りなかったら処理を終了
+//				if(!expman.hasExp(expAmount)){
+//					player.sendMessage(ChatColor.RED + "必要な経験値が足りません");
+//					player.playSound(player.getLocation(), Sound.BLOCK_GLASS_PLACE, 1, (float) 0.1);
+//					return;
+//				}
+//				//経験値消費
+//				expman.changeExp(-expAmount);
+//				//経験値オーブを足元に落とす
+//				Util.dropExpOrb(player, expAmount);
 			}
 		}
 	}
